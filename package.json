@@ -7,11 +7,19 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "images": "node scripts/images.js",
+    "ios-bundle": "react-native bundle --dev false --entry-file index.js --platform ios --bundle-output ios/main.jsbundle --assets-dest ios/res",
+    "android-bundle": "react-native bundle --dev false --entry-file index.js --platform android --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "release-build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/build/intermediates/res/merged/release/ && rm -rf android/app/src/main/res/drawable-* && rm -rf android/app/src/main/res/raw/* && cd android && ./gradlew assembleRelease && cd ..",
+    "clear-cache": "watchman watch-del-all && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/ && npm cache clean --force && npm install && npm start -- --reset-cache",
+    "clean-gradle": "cd android &&./gradlew clean"
   },
   "dependencies": {
     "react": "16.13.1",
-    "react-native": "0.63.3"
+    "react-native": "0.63.3",
+    "react-native-smart-tip": "^2.2.1",
+    "react-navigation": "^4.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.7",
