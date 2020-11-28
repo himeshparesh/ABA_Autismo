@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Image, Text, TouchableHighlight } from 'react-native';
 
-class index extends Component {
+class SelectUser extends React.Component {
         constructor(props) {
             super(props);
             this.state = {  };
@@ -18,11 +18,11 @@ class index extends Component {
         render() {
             return (
                 <View style={{flex:1}}>
-                    <View style={{flex:1}}><TouchableHighlight onPress={this.onPressSelectUser}><Text>Select user</Text></TouchableHighlight></PonPress={this.onPressSelectUser}iew>
+                    <View style={{flex:1}}><TouchableHighlight onPress={this.onPressSelectUser}><Text>Select user</Text></TouchableHighlight></View>
                     <View style={{flex:1}}><TouchableHighlight onPress={this.onPressNewUser}><Text>New User</Text></TouchableHighlight></View>
                 </View>
             );
         }
     }
     
-    export default index;
+    export default SelectUser;

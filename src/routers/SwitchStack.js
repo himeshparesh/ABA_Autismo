@@ -1,7 +1,8 @@
 import { createSwitchNavigator } from 'react-navigation';
-import AppStack from './AppStack';
-import Splash from '../screens/Splash';
+import Splash from '../screens/Auth/Splash';
 import AuthStack from './AuthStack';
+import AppStack from './AppStack';
+
 
 
  const SwitchStack = createSwitchNavigator(

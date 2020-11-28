@@ -1,8 +1,8 @@
 import { createStackNavigator } from "react-navigation-stack";
-import BottomTabBar from "./BottomTabBar";
+import Home from "../screens/App/HomeScreens/Home";
 
 const AppStack = createStackNavigator({
-    BottomTabBar: BottomTabBar,
+    Home: Home,
     
     },
   

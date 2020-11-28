@@ -13,13 +13,11 @@ import {
   AsyncStorage,
   Alert
 } from "react-native";
-import { COLORS } from "../styles/Colors";
-import AuthStackStyles from "../styles/AuthStackStyles";
-import { validateEmail, setAccessToken } from "../utile/UtilityFuncation";
-import { showToast } from "../utile/UIUtilityFunc";
-import Loader from "./Comman/Loader";
-import { images } from "../utile/imagePath";
-import GLOBALS from "./globals/global";
+// import { validateEmail } from "../utile/UtilityFuncation";
+
+import Loader from "../../../../components/Loader";
+import { U } from "../../../../Utility";
+import { R } from "../../../../res";
 
 
 class CreateAccount extends Component {
@@ -27,40 +25,28 @@ class CreateAccount extends Component {
     super(props);
     this.state = {
       eMail: "",
+      password: "",
       screenHeight: 0,
       loading: false,
     };
   }
 
-  
-
-  onLoginButtonPress = () => {
-    
-    Keyboard.dismiss();
-    if (this.validate()) {
-      this.setState({ loading: true, disable: true });
-      this.requestForLogin();
-    }
-  };
-
- 
 
   validate() {
-    this.setState({ validationError: null });
-
+    
     const { eMail, password } = this.state;
 
     if (eMail.length == 0) {
-      showToast("Please provide the email!");
+     U.utility.showMessage("Please provide the email!");
       return false;
     } else if (password.length == 0) {
-      showToast("Please provide the password!");
+      U.utility.showMessage("Please provide the password!");
       return false;
     } else {
-      if (!validateEmail(eMail)) {
-        showToast("Please provide a valid email!");
-        return false;
-      }
+      // if (!validateEmail(eMail)) {
+      //   U.utility.showMessage("Please provide a valid email!");
+      //   return false;
+      // }
     }
 
     return true;
@@ -71,7 +57,7 @@ class CreateAccount extends Component {
     return (
       <View>
         <TextInput
-          style={AuthStackStyles.loginEmailInput}
+          // style={AuthStackStyles.loginEmailInput}
           autoCapitalize="none"
           keyboardType={"email-address"}
           placeholder={"Email (Eg : xyz@gmail.com)"}
@@ -81,7 +67,7 @@ class CreateAccount extends Component {
         />
           <TouchableOpacity
             activeOpacity={0.8}
-            style={AuthStackStyles.touchTxt}
+            // style={AuthStackStyles.touchTxt}
             onPress={this.managePasswordVisibility}
           >
           <Text>login</Text>
@@ -105,11 +91,12 @@ class CreateAccount extends Component {
   render() {
     const scrollEnabled = true;
     return (
-      <View style={AuthStackStyles.loginContainer}>
+      // style={AuthStackStyles.loginContainer}
+      <View > 
         <Loader loading={this.state.loading} />
 
         <KeyboardAvoidingView
-          style={AuthStackStyles.authKeyAvoidStyle}
+          // style={AuthStackStyles.authKeyAvoidStyle}
           // behavior = "padding"
           keyboardShouldPersistTaps={"handled"}
         >
@@ -124,9 +111,10 @@ class CreateAccount extends Component {
               flexGrow: 1
             }}
           >
-            <View style={AuthStackStyles.loginHeaderView}>
+          {/* style={AuthStackStyles.loginHeaderView} */}
+            <View >
               <Image
-                source={images.commonImage.flavorLogo}
+                source={R.images.Icons.logo}
                 style={{
                   height: "70%",
                   width: "70%",
@@ -137,10 +125,10 @@ class CreateAccount extends Component {
             </View>
             <View
               style={{
-                backgroundColor: COLORS.ColorPrimaryLightTheme,
+                backgroundColor: R.colors.grayishGreenColor,
                 alignSelf: "center",
                 top: 50,
-                width: "85%"
+                width: "85%"  
               }}
             >
               {this.renderLoginFormView()}

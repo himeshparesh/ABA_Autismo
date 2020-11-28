@@ -1,6 +1,6 @@
 import {createStackNavigator } from "react-navigation";
-import CreateAccount from '../screens/WelcomeScreen/Signup';
-import SelectUser from '../screens/WelcomeScreen/SelectUser';
+import SelectUser from "../screens/Auth/WelcomeScreen/SelectUser";
+import CreateAccount from "../screens/Auth/WelcomeScreen/Signup";
 
 const AuthStack = createStackNavigator({
     SelectUser: SelectUser,

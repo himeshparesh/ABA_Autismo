@@ -1,16 +1,17 @@
 import {StyleSheet} from 'react-native';
-import Res from '../../res';
+import { R } from '../../../res';
+
 const styles = StyleSheet.create({
   subContainer: {
-    backgroundColor: Res.colors.white,
+  backgroundColor: R.colors.white,
    justifyContent:'center',
    alignItems:'center'
   },
   styleContainer:{
-    backgroundColor:Res.colors.white
+    backgroundColor:R.colors.white
   },
   txtName:{
-    color: Res.colors.black
+    color: R.colors.black
   }
 });
 

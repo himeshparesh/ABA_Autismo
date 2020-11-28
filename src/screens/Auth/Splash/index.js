@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import styles from './style';
+import SplashScreen from 'react-native-splash-screen';
 
 class Splash extends React.Component {
   componentDidMount() {
+
     this.props.navigation.navigate('App');
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 2000);
+
   }
 
   render() {
