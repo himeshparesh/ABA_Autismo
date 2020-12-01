@@ -4,7 +4,6 @@ import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 
 
-
  const SwitchStack = createSwitchNavigator(
     {
         Splash: Splash, 

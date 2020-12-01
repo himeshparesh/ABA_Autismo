@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
+#import "Orientation.h"
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -26,8 +27,19 @@ static void InitializeFlipper(UIApplication *application) {
 
 @implementation AppDelegate
 
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
+}
+ 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+if (@available(iOS 14, *)) {
+  UIDatePicker *picker = [UIDatePicker appearance];
+  picker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+}
+
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif

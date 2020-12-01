@@ -1,47 +1,28 @@
-import React from 'react';
-import {StatusBar, View} from 'react-native';
-import Router from './routers/Router';
+import React, {useEffect} from 'react';
+import SplashScreen from 'react-native-splash-screen';
 // import {Provider} from 'react-redux';
-// import {createStore, applyMiddleware} from 'redux';
-// import ReduxThunk from 'redux-thunk';
-import {LogBox} from 'react-native'
-// import rootReducer from './reducers';
+// import ReduxNavigation from './ReduxNavigation';
+// import {configureStore} from './configuration';
+// import {LogBox} from 'react-native';
+import Router from './routers/Router';
 
-LogBox.ignoreAllLogs(true)
+// LogBox.ignoreAllLogs(true);
 
-export let navigatorRef;
+// const store = configureStore();
 
+const App = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 3000);
+  }, []);
+  return (
+    <Router
+      ref={nav => {
+        this.navigator = nav;
+      }}
+    />
+  );
+};
 
-
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  // componentDidMount(){
-  //   setTimeout(() => {
-  //     SplashScreen.hide();
-  //   }, 1000);
-  // }
-
-  render() {
-    // const store = createStore(
-    //   rootReducer,
-    //   {},
-    //   applyMiddleware(ReduxThunk),
-    // );
-    return (
-      <View style={{flex: 1}}>
-        <StatusBar translucent barStyle="light-content" />
-        {/* <Provider store={store} > */}
-          <Router
-            ref={nav => {
-              this.navigator = nav;
-            }}
-          />
-        {/* </Provider> */}
-      </View>
-    );
-  }
-}
+export default App;

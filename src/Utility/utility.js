@@ -1,9 +1,10 @@
 import { Platform, Alert, Dimensions } from 'react-native';
 // import AsyncStorage from '@react-native-community/async-storage';
-import {R} from  '../res';
+import { R } from '../res';
 // import NavigationService from './NavigationService';
 // import FileViewer from 'react-native-file-viewer';
 // import * as RNFS from 'react-native-fs';
+import Orientation from 'react-native-orientation-locker';
 import { WToast, WSnackBar } from 'react-native-smart-tip';
 
 export const getDeviceWidth = () => {
@@ -13,6 +14,14 @@ export const getDeviceWidth = () => {
 export const getDeviceHeight = () => {
   return Math.round(Dimensions.get('window').height);
 };
+
+
+export const orientationLock = () => {
+  return Orientation.lockToLandscape();
+};
+
+
+
 
 export const adminAccess = {
   attendance:1,
@@ -32,17 +41,17 @@ export const getOS = () => {
 };
 
 export const alertOkButton = {
-  text: R.strings.ButtonTitle.ok,
+  text: "Ok", //R.strings.ButtonTitle.ok,
   onPress: () => console.log('OK Pressed'),
 };
 
 export const alertCancelButton = {
-  text: R.strings.ButtonTitle.cancel,
+  text: "cancel",//R.strings.ButtonTitle.cancel,
   onPress: () => console.log('Cancel Pressed'),
 };
 
 export const showAlert = (
-  title = R.strings.AppName,
+  title = "ABA Autismo",//R.strings.AppName,
   message,
   buttons = [alertOkButton],
 ) => {

@@ -1,17 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, Text} from 'react-native';
 import styles from './style';
-import SplashScreen from 'react-native-splash-screen';
+import { orientationLock } from '../../../Utility/utility';
 
 class Splash extends React.Component {
   componentDidMount() {
-
-    this.props.navigation.navigate('App');
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 2000);
-
-  }
+    orientationLock();
+    this.props.navigation.navigate('Auth');
+  } 
 
   render() {
     return (

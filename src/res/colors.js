@@ -11,6 +11,7 @@ const colors = {
   grayishCyanColor : "#a2c4c9",
   grayishGreenColor : "#b6d7a8",
   softRedColor : "#ea9999",
+  textGreyColor: "#9E9E9E"
   
   };
   

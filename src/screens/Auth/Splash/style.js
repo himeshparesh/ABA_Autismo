@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
    alignItems:'center'
   },
   styleContainer:{
-    backgroundColor:R.colors.white
+    backgroundColor:R.colors.greenColor
   },
   txtName:{
     color: R.colors.black

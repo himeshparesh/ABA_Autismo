@@ -1,140 +1,146 @@
-import React, { Component } from "react";
-import {
-  Text,
-  View,
-  TextInput,
-  StatusBar,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  AsyncStorage,
-  Alert
-} from "react-native";
-// import { validateEmail } from "../utile/UtilityFuncation";
+import React from 'react';
+import {Text, View, TextInput, TouchableOpacity} from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+// import Loader from "../../../../components/Loader";
+import {U} from '../../../../Utility';
+import {R} from '../../../../res';
+import commonStyle from '../../../../styles/commonStyle';
+import styles from './styles';
+import ImageButton from '../../../../components/ImageButton';
+import moment from 'moment';
+import Orientation from 'react-native-orientation-locker';
 
-import Loader from "../../../../components/Loader";
-import { U } from "../../../../Utility";
-import { R } from "../../../../res";
-
-
-class CreateAccount extends Component {
+class CreateAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      eMail: "",
-      password: "",
-      screenHeight: 0,
+      name: '',
+      surname: '',
+      date: new Date(),
+      note: '',
       loading: false,
+      showDateTimePicker: false,
     };
   }
 
+  componentDidMount() {
+    Orientation.lockToLandscape();
+  }
 
   validate() {
-    
-    const { eMail, password } = this.state;
+    const {name,surname,note} = this.state;
 
-    if (eMail.length == 0) {
-     U.utility.showMessage("Please provide the email!");
+    if (name.trim() === "" || name.length == 0) {
+      U.utility.showMessage("Please enter user name");
       return false;
-    } else if (password.length == 0) {
-      U.utility.showMessage("Please provide the password!");
+    }else if (surname.trim() === "" || surname.length == 0) {
+      U.utility.showMessage("Please enter user surename");
       return false;
-    } else {
-      // if (!validateEmail(eMail)) {
-      //   U.utility.showMessage("Please provide a valid email!");
-      //   return false;
-      // }
+    }else if (note.trim() === "" || note.length == 0) {
+      U.utility.showMessage("Please enter note");
+      return false;
     }
-
     return true;
   }
 
- 
-  renderLoginFormView() {
-    return (
-      <View>
-        <TextInput
-          // style={AuthStackStyles.loginEmailInput}
-          autoCapitalize="none"
-          keyboardType={"email-address"}
-          placeholder={"Email (Eg : xyz@gmail.com)"}
-          onChangeText={text => {
-            this.setState({ eMail: text });
-          }}
-        />
-          <TouchableOpacity
-            activeOpacity={0.8}
-            // style={AuthStackStyles.touchTxt}
-            onPress={this.managePasswordVisibility}
-          >
-          <Text>login</Text>
-            {/* <Image
-              source={
-                this.state.hidePassword
-                  ? require("../../assets/icons/hidePass.png")
-                  : require("../../assets/icons/showPass.png")
-              }
-              style={AuthStackStyles.imgView}
-            /> */}
-          </TouchableOpacity>
-      </View>
-    );
-  }
-  onContentSizeChange = (contentWidth, contentHeight) => {
-    // Save the content height in state
-    this.setState({ screenHeight: contentHeight });
+  onCreateAccPressed = () => {
+    // if(this.validate()){
+      this.props.navigation.navigate('Home');
+    // }
+    
+  };
+
+  handleDateTimeChange = date => {
+    this.setState({
+      date: date,
+      showDateTimePicker: false,
+    });
+  };
+
+  hideDatePicker = () => {
+    this.setState({showDateTimePicker: false});
   };
 
   render() {
-    const scrollEnabled = true;
+    const {name, surname, note} = this.state;
     return (
-      // style={AuthStackStyles.loginContainer}
-      <View > 
-        <Loader loading={this.state.loading} />
+      <View style={[commonStyle.container, {flexDirection: 'row'}]}>
+        <View style={styles.leftContainer}>
+          <View style={styles.titleContainer}>
+            <ImageButton
+              image={R.images.Icons.new_user}
+              text={'New User'}
+              iconStyle={commonStyle.imgIcon}
+              textStyle={[styles.imgNewUser, {fontSize: 15,marginTop:3}]}
+            />
+          </View>
+          <View style={styles.contendContainer}>
+            {/* name */}
+            <TextInput
+              style={styles.textinput}
+              label="Name"
+              returnKeyType="next"
+              value={name}
+              placeholder={'Name'}
+              onChangeText={text => this.setState({text})}
+            />
 
-        <KeyboardAvoidingView
-          // style={AuthStackStyles.authKeyAvoidStyle}
-          // behavior = "padding"
-          keyboardShouldPersistTaps={"handled"}
-        >
-          <ScrollView
-            style={{
-              width: "100%"
-            }}
-            keyboardShouldPersistTaps={"handled"}
-            scrollEnabled={scrollEnabled}
-            onContentSizeChange={this.onContentSizeChange}
-            contentContainerStyle={{
-              flexGrow: 1
-            }}
-          >
-          {/* style={AuthStackStyles.loginHeaderView} */}
-            <View >
-              <Image
-                source={R.images.Icons.logo}
-                style={{
-                  height: "70%",
-                  width: "70%",
-                  alignContent: "center",
-                  resizeMode: "contain"
-                }}
-              />
-            </View>
-            <View
-              style={{
-                backgroundColor: R.colors.grayishGreenColor,
-                alignSelf: "center",
-                top: 50,
-                width: "85%"  
-              }}
-            >
-              {this.renderLoginFormView()}
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
+            {/* surname */}
+            <TextInput
+              style={styles.textinput}
+              label="Surname"
+              returnKeyType="next"
+              value={surname}
+              placeholder={'Surname'}
+              onChangeText={text => this.setState({text})}
+            />
+
+            {/* datepicker */}
+            <TouchableOpacity
+              onPress={() => this.setState({showDateTimePicker: true})}>
+              <View style={[styles.textinput,{justifyContent:'center',paddingLeft:5}]}>
+                <Text style={styles.datePickerSelect}>Select birthdate</Text>
+              </View>
+            </TouchableOpacity>
+
+            {/* note */}
+            <TextInput
+              style={styles.textarea}
+              label="Note"
+              returnKeyType="done"
+              value={note}
+              placeholder={'Note'}
+              multiline={true}
+              maxLengh={'200'}
+              onChangeText={text => this.setState({text})}
+            />
+          </View>
+          {/* <View style={styles.bottomContainer}></View> */}
+        </View>
+
+        <View style={styles.rightContainer}>
+          <TouchableOpacity onPress={this.onCreateAccPressed}>
+            <ImageButton
+              image={R.images.Icons.new_user_rec}
+              text={''}
+              iconStyle={commonStyle.imgStyle}
+              textStyle={styles.imgNewUserRec}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <DateTimePickerModal
+          supportedOrientations={['portrait', 'landscape']}
+          headerTextIOS="Pick a date"
+          mode={'date'}
+          // minimumDate={moment(new Date()).toDate()}
+          isVisible={this.state.showDateTimePicker}
+          date={new Date(this.state.date)}
+          onConfirm={date => {
+            this.handleDateTimeChange(date);
+          }}
+          onCancel={this.hideDatePicker}
+        />
       </View>
     );
   }
